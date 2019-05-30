@@ -83,7 +83,7 @@ Selain cara di atas Developer juga dapat menjabarkan secara manual, untuk melaku
 ```
 zuul:
   routes:
-    <b>ribbon</b>:
+    ribbon:
       url: http://localhost:8081
 ```
 Pada contoh di atas maka service tersebut di mapping menjadi ribbon
