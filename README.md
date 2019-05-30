@@ -78,4 +78,33 @@ eureka:
 server:
   port: 9090
 ```
-```registerWithEureka dan fetchRegistry``. Memungkinkan untuk melakukan registrasi para eureka dan menarik semua service informasi yang terdapat pada server eureka tersebut.
+```registerWithEureka dan fetchRegistry```. Memungkinkan untuk melakukan registrasi para eureka dan menarik semua service informasi yang terdapat pada server eureka tersebut.
+
+3. Setleah perubahan ini maka setiap pemanggilan service, dilakukan lewat zull, di bawah ini adalah perubahan perubahannya :
+```
+@GetMapping("/client")
+public String client() {
+	String hasil = restTemplate.getForObject("http://SPRINGZULL/springribbonserver/fetch", String.class);
+	//String hasil = restTemplate.getForObject("http://SPRINGRIBBONSERVER/fetch", String.class);
+	return hasil;
+}
+```
+dan
+```
+@FeignClient("SpringZull")
+//@FeignClient("SpringRibbonServer")
+public interface SpringRibbonInterface {
+
+	@GetMapping("/springribbonserver/fetch")
+	//@GetMapping("/fetch")
+	public String fetch();
+	
+	@GetMapping("/springribbonserver/feignGet/{nomor}")
+	//@GetMapping("/feignGet/{nomor}")
+	public Map<String, Object> feignGet(@PathVariable("nomor") Long nomor, @RequestParam("nama") String nama);
+	
+	@PostMapping("/springribbonserver/feignPost/{nomor}")
+	//@PostMapping("/feignPost/{nomor}")
+	public Map<String, Object> feignPost(@PathVariable("nomor") Long nomor, @RequestBody Map<String, Object> param);
+}
+```
