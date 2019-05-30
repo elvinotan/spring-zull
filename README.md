@@ -65,3 +65,17 @@ public class ErrorFilter extends ZuulFilter {
 
 }
 ```
+
+2. Agar Zull ini dapat mengambil semua informasi service yang terdapat pada eureka, maka kita harus memberi property
+```
+---
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9083/eureka
+    registerWithEureka: true  
+    fetchRegistry: true      
+server:
+  port: 9090
+```
+```registerWithEureka dan fetchRegistry``. Memungkinkan untuk melakukan registrasi para eureka dan menarik semua service informasi yang terdapat pada server eureka tersebut.
